@@ -29,7 +29,26 @@ function addRandomGreeting() {
 }
 
 function getdataUsingArrowFunctions() {
-  fetch('/data').then(response => response.text()).then((phrase) => {
-    document.getElementById('phrase-container').innerText = phrase;
+  fetch('/data').then(response => response.json()).then((phrase) => {
+
+    const commentCont = document.getElementById('commentCont');
+    commentCont.innerText = '';
+
+    let increment = 1;
+    phrase.forEach((element) => {
+        let li = document.createElement('li');
+        li.innerHTML = ("Comment " + increment + ": " + element ); 
+        commentCont.appendChild(li);                 
+        console.log(element + "here");
+        increment++;
+    });
+//     var listDiv = document.getElementById('list-puntate');
+// var ul=document.createElement('ul');
+// for (var i = 0; i < data.list.length; ++i) {
+//       var li=document.createElement('li');
+//       li.innerHTML = data.list[i].puntata;   // Use innerHTML to set the text
+//       ul.appendChild(li);                                 
+// }
+// listDiv.appendChild(ul);    // Note 
   });
 }
