@@ -12,17 +12,17 @@ import javax.servlet.http.HttpServletResponse;
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
-  public ArrayList<String> com;
+  public ArrayList<String> com = new ArrayList<String>();
 
-  @Override
-  public void init() {
-    com = new ArrayList<String>(); 
-    com.add(
-        "Those who think they can change the world are the ones who do. - ");
-    com.add("They told me computers could only do arithmetic. - ");
-    com.add("A ship in port is safe, but thats not what ships are built for. - ");
-    // console.log("ArrayList : " + com); 
-  }
+//   @Override
+//   public void init() {
+//     com = new ArrayList<String>(); 
+//     com.add(
+//         "Those who think they can change the world are the ones who do. - ");
+//     com.add("They told me computers could only do arithmetic. - ");
+//     com.add("A ship in port is safe, but thats not what ships are built for. - ");
+//     console.log("ArrayList : " + com); 
+//   }
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -33,6 +33,26 @@ public class DataServlet extends HttpServlet {
     response.setContentType("application/json;");
     response.getWriter().println(json); //web page
     // console.log(json);
+  }
+  @Override
+  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    // Get the input from the form.
+    String text = getParameter(request, "comment", "");
+    com.add(text);
+    
+    // Redirect back to the HTML page.
+    response.sendRedirect("/index.html");
+  }
+    /**
+   * @return the request parameter, or the default value if the parameter
+   *         was not specified by the client
+   */
+  private String getParameter(HttpServletRequest request, String name, String defaultValue) {
+    String value = request.getParameter(name);
+    if (value == null) {
+      return defaultValue;
+    }
+    return value;
   }
   /**
    * Converts a ServerStats instance into a JSON string using the Gson library. Note: We first added
