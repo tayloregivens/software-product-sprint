@@ -36,19 +36,16 @@ function getdataUsingArrowFunctions() {
 
     let increment = 1;
     phrase.forEach((element) => {
+
         let li = document.createElement('li');
         li.innerHTML = ("Comment " + increment + ": " + element ); 
         commentCont.appendChild(li);                 
         console.log(element + "here");
         increment++;
     });
-//     var listDiv = document.getElementById('list-puntate');
-// var ul=document.createElement('ul');
-// for (var i = 0; i < data.list.length; ++i) {
-//       var li=document.createElement('li');
-//       li.innerHTML = data.list[i].puntata;   // Use innerHTML to set the text
-//       ul.appendChild(li);                                 
-// }
-// listDiv.appendChild(ul);    // Note 
+    // let li = document.createElement('li');
+    // li.innerText = phrase;
+    // commentCont.appendChild(li);
+
   });
 }
