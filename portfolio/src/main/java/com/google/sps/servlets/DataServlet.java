@@ -1,6 +1,9 @@
 
 package com.google.sps.servlets;
 
+import com.google.appengine.api.datastore.PreparedQuery;
+import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.SortDirection;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
@@ -29,14 +32,29 @@ public class DataServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    String json = new Gson().toJson(com);
-     // Convert the server stats to JSON
-    System.out.println(json); //cloud shell
-    // Send the JSON as the response
+    // String json = new Gson().toJson(com);
+    //  // Convert the server stats to JSON
+    // System.out.println(json); //cloud shell
+    // // Send the JSON as the response
+    // response.setContentType("application/json;");
+    // response.getWriter().println(json); //web page
+    // // console.log(json);
+    Query query = new Query("Comment");
+
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    PreparedQuery results = datastore.prepare(query);
+
+    List<String> comments = new ArrayList<>();
+    for (Entity entity : results.asIterable()) {
+    //   long id = entity.getKey().getId();
+        String comment = (String) entity.getProperty("comment");
+        comments.add(comment);
+    }
+    Gson gson = new Gson();
     response.setContentType("application/json;");
-    response.getWriter().println(json); //web page
-    // console.log(json);
+    response.getWriter().println(gson.toJson(comments));
   }
+  
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     // Get the input from the form.
