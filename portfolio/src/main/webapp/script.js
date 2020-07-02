@@ -28,24 +28,29 @@ function addRandomGreeting() {
   
 }
 
-function getdataUsingArrowFunctions() {
-  fetch('/data').then(response => response.json()).then((phrase) => {
+function ListComments() {
+  fetch('/formhandler').then(response => response.json()).then((CommentInfo) => {
 
     const commentCont = document.getElementById('commentCont');
     commentCont.innerText = '';
 
-    let increment = 1;
-    phrase.forEach((element) => {
+    CommentInfo.forEach((element) => {
+        let commentdiv = document.createElement('div');
 
-        let li = document.createElement('li');
-        li.innerHTML = ("Comment " + increment + ": " + element ); 
-        commentCont.appendChild(li);                 
-        console.log(element + "here");
-        increment++;
+        let timestampS = document.createElement('p');
+        timestampS.innerHTML = (element.timestampS); 
+        let comment = document.createElement('p');
+        comment.innerHTML = (element.comment); 
+        let image = document.createElement('img');
+        image.src = element.imageurl;
+
+        commentdiv.appendChild(timestampS);
+        commentdiv.appendChild(comment);
+        commentdiv.appendChild(image);
+
+        commentCont.appendChild(commentdiv);                 
+        console.log(element.comment + "here");
+    
     });
-    // let li = document.createElement('li');
-    // li.innerText = phrase;
-    // commentCont.appendChild(li);
-
   });
 }
