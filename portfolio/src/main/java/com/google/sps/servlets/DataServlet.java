@@ -70,7 +70,7 @@ public class DataServlet extends HttpServlet {
     datastore.put(comEntity);
 
     // Redirect back to the HTML page.
-    response.sendRedirect("/index.html");
+    response.sendRedirect("/index.jsp");
   }
     /**
    * @return the request parameter, or the default value if the parameter
